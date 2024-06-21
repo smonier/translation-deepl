@@ -22,7 +22,6 @@
 
     <properties>
         <jahia-depends>default,content-editor=4.0.0</jahia-depends>
-        <jahia.plugin.version>6.0</jahia.plugin.version>
         <require-capability>osgi.extender;filter:="(osgi.extender=org.jahia.bundles.blueprint.extender.config)"</require-capability>
         <yarn.arguments>build:production</yarn.arguments>
     </properties>
@@ -57,6 +56,11 @@
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
                 <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <_dsannotations>*</_dsannotations>
+                    </instructions>
+                </configuration>
             </plugin>
 
             <plugin>
@@ -86,7 +90,7 @@
                             <goal>install-node-and-yarn</goal>
                         </goals>
                         <configuration>
-                            <nodeVersion>v14.18.2</nodeVersion>
+                            <nodeVersion>v16.14.0</nodeVersion>
                             <yarnVersion>v1.22.10</yarnVersion>
                         </configuration>
                     </execution>
@@ -109,6 +113,31 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.0.0-M3</version> <!-- Update to the latest version -->
+                <executions>
+                  <execution>
+                    <id>enforce-versions</id>
+                    <goals>
+                      <goal>enforce</goal>
+                    </goals>
+                    <configuration>
+                      <rules>
+                        <requireMavenVersion>
+                          <version>[3.6.0,)</version>
+                        </requireMavenVersion>
+                      </rules>
+                    </configuration>
+                  </execution>
+                </executions>
+              </plugin>
+              <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.1</version> <!-- Update to the latest version -->
+              </plugin>
         </plugins>
     </build>
 
