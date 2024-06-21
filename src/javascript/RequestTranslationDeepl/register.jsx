@@ -15,21 +15,6 @@ export default function () {
         menuItemRenderer: MenuItemRenderer
     });
 
-    registry.add('action', 'deeplTranslationMenuFrom', menuActionWithRenderer, {
-        buttonLabel: 'translation-deepl:label.menu',
-        targets: ['content-editor/header/3dots:99'],
-        menuTarget: 'deeplTranslationFromMenu',
-        isMenuPreload: true
-    });
-
-    registry.add('action', 'translation-deepl-requestTranslation', {
-        targets: ['deeplTranslationFromMenu:1'],
-        showOnNodeTypes: ['jnt:page', 'jnt:content'],
-        subTree: false,
-        allLanguages: false,
-        component: RequestDeeplTranslationFromAction
-    });
-
     registry.add('action', 'translationMenu', menuActionWithRenderer, {
         buttonLabel: 'translation-deepl:label.menu',
         targets: ['contentActions:999'],
