@@ -5,10 +5,6 @@ import * as PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import styles from './TranslateContentFromDialog.scss';
 import { LoaderOverlay } from '../../DesignSystem/LoaderOverlay';
-import {useApolloClient} from '@apollo/client';
-import {EditFormQuery} from './edit.gql-queries';
-import {getI18nFieldAndValues} from './TranslateContentFrom.utils';
-import {Constants} from './ContentEditor.constants';
 
 export const TranslateContentFromDialog = ({
     language,
@@ -20,22 +16,6 @@ export const TranslateContentFromDialog = ({
     langLocale,
     formik
 }) => {
-    const client = useApolloClient();
-
-    const getDataFromSelectedLanguage = async _language => {
-        const variables = {
-            uilang: _language,
-            formik,
-            language: _language,
-            uuid: uuid,
-            writePermission: `jcr:modifyProperties_default_${_language}`,
-            childrenFilterTypes: Constants.childrenFilterTypes
-        };
-
-        const formAndData = await client.query({query: EditFormQuery, variables: variables});
-
-        return getI18nFieldAndValues(formAndData);
-    };
 
     const { t } = useTranslation('translation-deepl');
     const handleCancel = () => {
@@ -65,7 +45,7 @@ export const TranslateContentFromDialog = ({
         try {
             const formData = new FormData();
             formData.append('subTree', false);
-            formData.append('allLanguages',false);
+            formData.append('allLanguages', false);
             formData.append('srcLanguage', currentOption.value);
             formData.append('destLanguage', langLocale);
             formData.append('3dotsMenu', true);
@@ -76,7 +56,7 @@ export const TranslateContentFromDialog = ({
                 headers: { Accept: 'application/json' },
                 body: formData
             });
-            
+
 
             if (!response.ok) {
                 const errorMessage = `HTTP error! status: ${response.status}`;
@@ -129,19 +109,21 @@ export const TranslateContentFromDialog = ({
             onClose={onCloseDialog}
         >
             <DialogTitle id="dialog-language-title" className={styles.dialogTitleContainer}>
-                <img
-                    src="https://static.deepl.com/img/logo/deepl-logo-blue.svg"
-                    alt="DeepL Logo"
-                    className={styles.dialogLogo}
-                />
-                <img
-                    src="https://static.deepl.com/img/logo/deepl-logo-text-blue.svg"
-                    alt="DeepL Text"
-                    className={styles.dialogLogoText}
-                />
-                <Typography isUpperCase variant="heading" weight="bold" className={styles.dialogTitle}>
-                    {t('translation-deepl:label.dialog.translationFrom.dialogTitle')}
-                </Typography>
+                <div className={styles.flexContainer}>
+                    <img
+                        src="https://static.deepl.com/img/logo/deepl-logo-blue.svg"
+                        alt="DeepL Logo"
+                        className={styles.dialogLogo}
+                    />
+                    <img
+                        src="https://static.deepl.com/img/logo/deepl-logo-text-blue.svg"
+                        alt="DeepL Text"
+                        className={styles.dialogLogoText}
+                    />
+                    <Typography isUpperCase variant="heading" weight="bold" className={styles.dialogTitle}>
+                        {t('translation-deepl:label.dialog.translationFrom.dialogTitle')}
+                    </Typography>
+                </div>
                 <div className={styles.dialogTitleTextContainer}>
                     <Typography variant="subheading" className={styles.dialogSubTitle}>
                         {t('translation-deepl:label.dialog.translationFrom.dialogSubTitle')}

@@ -1,0 +1,23 @@
+{
+    "label": {
+        "requestTranslation": "Übersetzen <em>{{displayName}}</em> - {{languageDisplay}}",
+        "requestTranslationFrom": "DeepL Übersetzen aus",
+        "requestTranslationTree": "Übersetzen Sie alles unter <em>{{displayName}}</em> - {{languageDisplay}}",
+        "requestTranslationForAllLanguages": "Übersetzen <em>{{displayName}}</em> in allen Sprachen",
+        "requestTranslationTreeForAllLanguages": "Übersetzen Sie alles unter <em>{{displayName}}</em> in allen Sprachen",
+        "menu": "DeepL",
+        "dialog": {
+            "translationFrom": {
+                "dialogTitle": "Übersetzung aus",
+                "bottomText": "Beim Klicken auf \"ANWENDEN\" werden alle Felder mit der neu gewählten Sprache überschrieben.",
+                "btnApply": "Anwenden",
+                "btnCancel": "Abbrechen",
+                "currentLanguage": "Zur aktuellen Sprache:",
+                "defaultValue": "Nicht ausgewählt",
+                "dialogSubTitle": "\"Übersetzen aus\" ermöglicht es Ihnen, ALLE Inhaltsfelder aus einer anderen Sprache in die aktuelle Sprache mit DeepL Übersetzungsdiensten zu übersetzen.",
+                "listLabel": "Übersetzen aus",
+                "name": "Aus Sprachen übersetzen"
+            }
+        }
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "label": {
+        "requestTranslation": "Traduci <em>{{displayName}}</em> - {{languageDisplay}}",
+        "requestTranslationFrom": "DeepL Traduci da",
+        "requestTranslationTree": "Traduci tutto sotto <em>{{displayName}}</em> - {{languageDisplay}}",
+        "requestTranslationForAllLanguages": "Traduci <em>{{displayName}}</em> in tutte le lingue",
+        "requestTranslationTreeForAllLanguages": "Traduci tutto sotto <em>{{displayName}}</em> in tutte le lingue",
+        "menu": "DeepL",
+        "dialog": {
+            "translationFrom": {
+                "dialogTitle": "Traduzione da",
+                "bottomText": "Cliccando su \"APPLICA\" sovrascriverai tutti i campi con la lingua appena scelta.",
+                "btnApply": "Applica",
+                "btnCancel": "Annulla",
+                "currentLanguage": "Alla lingua corrente:",
+                "defaultValue": "Non selezionato",
+                "dialogSubTitle": "\"Traduci da\" consente di tradurre TUTTI i campi di contenuto da un'altra lingua nella lingua corrente utilizzando i servizi di traduzione DeepL.",
+                "listLabel": "Traduci da",
+                "name": "Traduci da lingue"
+            }
+        }
+    }
+}

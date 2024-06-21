@@ -14,7 +14,7 @@
                 "btnCancel": "Annuler",
                 "currentLanguage": "à langue courante",
                 "defaultValue": "Non sélectionné",
-                "dialogSubTitle": "\"Traduire de\" vous permet de traduire TOUS les champs de contenu d'une autre langue vers la langue actuelle.",
+                "dialogSubTitle": "\"Traduire de\" vous permet de traduire TOUS les champs de contenu d'une autre langue vers la langue actuelle en utilisant les services de traduction DeepL.",
                 "listLabel": "Traduire de",
                 "name": "Traduire à partir des langues"
             }

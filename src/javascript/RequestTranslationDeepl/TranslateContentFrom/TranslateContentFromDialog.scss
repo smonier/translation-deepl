@@ -57,26 +57,41 @@ div.dialog_overflowYVisible {
     overflow-y: visible;
 }
 
-.dialogLogo {
-    margin-right: 8px; /* Adjust the margin as needed */
-    height: 39.6px;
-    width: 32px;
-}
-.dialogLogoText {
-    margin-right: 8px; /* Adjust the margin as needed */
-    display: inline-block;
-    height: 18px;
-    vertical-align: middle;
-    width: 66px;
-}
-.dialogTitleTextContainer {
+
+.dialogTitleContainer {
     display: flex;
     flex-direction: column;
 }
-.dialogTitleContainer {
-    display: flex;
-    align-items: center;
+
+.dialogLogo {
+    width: 32px; /* Adjust size as needed */
+    height: auto;
+    margin-right: 8px; /* Adjust the margin as needed */
+
 }
+
+.dialogLogoText {
+    width: auto;
+    height: 18px; /* Adjust size as needed */
+}
+
+.dialogTitle {
+    font-size: 1.5rem; /* Adjust size as needed */
+    font-weight: bold;
+}
+
+.flexContainer {
+    display: flex;
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+    gap: 8px; /* Add space between elements, adjust as needed */
+}
+
+
+.dialogSubTitle {
+    font-size: 1rem; /* Adjust size as needed */
+}
+
 .loaderOverlayWrapper {
     display: flex;
     justify-content: center;

@@ -14,7 +14,7 @@
                 "btnCancel": "Cancel",
                 "currentLanguage": "To current language:",
                 "defaultValue": "Unselected",
-                "dialogSubTitle": "\"Translate from\" allows you to translate ALL content fields from another language into the current language.",
+                "dialogSubTitle": "\"Translate from\" allows you to translate ALL content fields from another language into the current language using DeepL Translation Services.",
                 "listLabel": "Translate from",
                 "name": "Translate from languages"
             }

@@ -1,0 +1,23 @@
+{
+    "label": {
+        "requestTranslation": "Traduzir <em>{{displayName}}</em> - {{languageDisplay}}",
+        "requestTranslationFrom": "DeepL Traduzir de",
+        "requestTranslationTree": "Traduzir tudo em <em>{{displayName}}</em> - {{languageDisplay}}",
+        "requestTranslationForAllLanguages": "Traduzir <em>{{displayName}}</em> em todos os idiomas",
+        "requestTranslationTreeForAllLanguages": "Traduzir tudo em <em>{{displayName}}</em> em todos os idiomas",
+        "menu": "DeepL",
+        "dialog": {
+            "translationFrom": {
+                "dialogTitle": "Tradução de",
+                "bottomText": "Ao clicar em \"APLICAR\", você substituirá todos os campos com o idioma recém escolhido.",
+                "btnApply": "Aplicar",
+                "btnCancel": "Cancelar",
+                "currentLanguage": "Para o idioma atual:",
+                "defaultValue": "Não selecionado",
+                "dialogSubTitle": "\"Traduzir de\" permite que você traduza TODOS os campos de conteúdo de outro idioma para o idioma atual usando os serviços de tradução do DeepL.",
+                "listLabel": "Traduzir de",
+                "name": "Traduzir de idiomas"
+            }
+        }
+    }
+}
