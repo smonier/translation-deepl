@@ -16,13 +16,18 @@ import org.jahia.services.content.JCRSessionWrapper;
 import org.jahia.services.render.RenderContext;
 import org.jahia.services.render.Resource;
 import org.jahia.services.render.URLResolver;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Component(service = Action.class, immediate = true)
 public class RequestTranslationAction extends Action {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(RequestTranslationAction.class);
 
     @Activate
     public void activate() {
@@ -46,7 +51,7 @@ public class RequestTranslationAction extends Action {
 
     @Override
     public ActionResult doExecute(final HttpServletRequest request, final RenderContext renderContext, final Resource resource, final JCRSessionWrapper session, Map<String, List<String>> parameters, final URLResolver urlResolver) throws Exception {
-        final JSONObject resp = new JSONObject();
+        JSONObject resp = new JSONObject();
         int resultCode = HttpServletResponse.SC_BAD_REQUEST;
 
         boolean allLanguages = false;
@@ -63,43 +68,58 @@ public class RequestTranslationAction extends Action {
             destLanguage = parameters.get(DeeplConstants.PROP_DEST_LANGUAGE).get(0);
         }
 
+        String currentLanguage = "";
+        if (parameters.containsKey(DeeplConstants.PROP_SRC_LANGUAGE) && !parameters.get(DeeplConstants.PROP_SRC_LANGUAGE).isEmpty()) {
+            currentLanguage = parameters.get(DeeplConstants.PROP_SRC_LANGUAGE).get(0);
+        } else {
+            currentLanguage = resource.getLocale().getLanguage();
+        }
+
+        boolean threeDotsMenu = false;
+        if (parameters.containsKey(DeeplConstants.PROP_3DOTSMENU) && !parameters.get(DeeplConstants.PROP_3DOTSMENU).isEmpty()) {
+            threeDotsMenu = Boolean.valueOf(parameters.get(DeeplConstants.PROP_3DOTSMENU).get(0));
+        }
+
         final List<Locale> locales = renderContext.getSite().getLanguagesAsLocales();
-        final String currentLanguage = resource.getLocale().getLanguage();
+        
+        try {
+            resp = translate(locales, resource.getNode(), currentLanguage, allLanguages, subTree, destLanguage, threeDotsMenu);
+            if (resp != null) {
+                resultCode = HttpServletResponse.SC_OK;
+            }
+        } catch (Exception e) {
+            LOGGER.error("Translation error: ", e);
+            resp.put("error", e.getMessage());
+        }
 
-        resultCode = translate(locales, resource.getNode(), currentLanguage, allLanguages, subTree, destLanguage);
-
+        LOGGER.info(resp.toString());
         return new ActionResult(resultCode, null, resp);
     }
 
-    private int translate(List<Locale> locales, JCRNodeWrapper node, String currentLanguage, boolean allLanguages, boolean subTree, String destLanguage) throws RepositoryException {
-        int resultCode = HttpServletResponse.SC_BAD_REQUEST;
+    private JSONObject translate(List<Locale> locales, JCRNodeWrapper node, String currentLanguage, boolean allLanguages, boolean subTree, String destLanguage, boolean threeDotsMenu) throws RepositoryException, JSONException {
+        JSONObject resp = new JSONObject();
+
         if (allLanguages) {
             for (Locale locale : locales) {
                 final String language = locale.getLanguage();
                 if (!currentLanguage.equals(language)) {
-                    deepLTranslatorService.translate(node.getPath(), currentLanguage, language);
+                    resp.put(language, deepLTranslatorService.translate(node.getPath(), currentLanguage, language, threeDotsMenu));
                 }
             }
-            if (subTree) {
-                final JCRNodeIteratorWrapper iterator = node.getNodes();
-                while (iterator.hasNext()) {
-                    final JCRNodeWrapper childNode = (JCRNodeWrapper) iterator.next();
-                    translate(locales, childNode, currentLanguage, allLanguages, subTree, destLanguage);
-                }
-            }
-            resultCode = HttpServletResponse.SC_OK;
         } else {
-            deepLTranslatorService.translate(node.getPath(), currentLanguage, destLanguage);
-            if (subTree) {
-                final JCRNodeIteratorWrapper iterator = node.getNodes();
-                while (iterator.hasNext()) {
-                    final JCRNodeWrapper childNode = (JCRNodeWrapper) iterator.next();
-                    translate(locales, childNode, currentLanguage, allLanguages, subTree, destLanguage);
-                }
-            }
-            resultCode = HttpServletResponse.SC_OK;
+            resp.put("properties", deepLTranslatorService.translate(node.getPath(), currentLanguage, destLanguage, threeDotsMenu));
         }
-        return resultCode;
-    }
 
+        if (subTree) {
+            final JCRNodeIteratorWrapper iterator = node.getNodes();
+            while (iterator.hasNext()) {
+                final JCRNodeWrapper childNode = (JCRNodeWrapper) iterator.next();
+                JSONObject childResp = translate(locales, childNode, currentLanguage, allLanguages, subTree, destLanguage, threeDotsMenu);
+                resp.put(childNode.getName(), childResp);
+            }
+        }
+
+        resp.put("resultCode", HttpServletResponse.SC_OK);
+        return resp;
+    }
 }
