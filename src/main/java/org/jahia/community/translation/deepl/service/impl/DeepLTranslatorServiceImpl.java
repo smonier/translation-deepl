@@ -1,8 +1,11 @@
 package org.jahia.community.translation.deepl.service.impl;
 
 import com.deepl.api.DeepLException;
+import com.deepl.api.TextResult;
 import com.deepl.api.Translator;
 import com.deepl.api.TranslatorOptions;
+import com.deepl.api.TextTranslationOptions;
+
 
 import java.net.InetSocketAddress;
 import java.net.Proxy;
@@ -79,11 +82,13 @@ public class DeepLTranslatorServiceImpl implements DeepLTranslatorService, Manag
                     final Proxy proxy = new Proxy(Proxy.Type.HTTP, address);
                     options.setProxy(proxy);
                 }
-
+                 
+                TextTranslationOptions textTranslatorOptions = new TextTranslationOptions();
+                textTranslatorOptions.setTagHandling("html");
+                textTranslatorOptions.setPreserveFormatting(true);
                 final Translator translator = new Translator(authKey, options);
                 for (Map.Entry<String, String> entry : translations.entrySet()) {
-                    entry.setValue(
-                            translator.translateText(entry.getValue(), srcLanguage, destDeepLLanguage).getText());
+                    entry.setValue(translator.translateText(entry.getValue(), srcLanguage, destLanguage,textTranslatorOptions).getText());
                     // entry.setValue(translator.translateText(entry.getValue(), srcLanguage,
                     // destLanguage).getText());
 
