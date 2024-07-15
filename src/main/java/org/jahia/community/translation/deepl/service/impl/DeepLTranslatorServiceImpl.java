@@ -132,13 +132,13 @@ public class DeepLTranslatorServiceImpl implements DeepLTranslatorService, Manag
         } catch (InterruptedException ex) {
             LOGGER.error(
                     "InterruptedException: "
-                            + String.format("Translation from %s to %s done for %s", srcLanguage, destLanguage, path),
+                            + String.format("Translation from %s to %s Exception for %s", srcLanguage, destLanguage, path),
                     ex);
             Thread.currentThread().interrupt();
         } catch (DeepLException | RepositoryException ex) {
             LOGGER.error(
                     "Impossible to translate content: "
-                            + String.format("Translation from %s to %s done for %s", srcLanguage, destLanguage, path),
+                            + String.format("Translation from %s to %s Exception for %s", srcLanguage, destLanguage, path),
                     ex);
         }
         return propsArray;
