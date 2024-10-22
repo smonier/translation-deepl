@@ -10,7 +10,7 @@
     <groupId>org.jahia.community</groupId>
     <artifactId>translation-deepl</artifactId>
     <name>Translation - DeepL</name>
-    <version>1.0.4-SNAPSHOT</version>
+    <version>1.0.5-SNAPSHOT</version>
     <packaging>bundle</packaging>
     <description>Module to allow you asking translation to DeepL from jContent.</description>
     <scm>
@@ -21,7 +21,7 @@
     </scm>
 
     <properties>
-        <jahia-depends>default,content-editor=4.0.0</jahia-depends>
+        <jahia-depends>default</jahia-depends>
         <require-capability>osgi.extender;filter:="(osgi.extender=org.jahia.bundles.blueprint.extender.config)"</require-capability>
         <yarn.arguments>build:production</yarn.arguments>
     </properties>

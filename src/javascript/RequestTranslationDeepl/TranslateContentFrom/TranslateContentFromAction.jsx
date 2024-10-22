@@ -4,8 +4,8 @@ import {TranslateContentFromDialog} from './TranslateContentFromDialog';
 import {getFullLanguageName} from './TranslateContentFrom.utils';
 import {ComponentRendererContext} from '@jahia/ui-extender';
 import {useFormikContext} from 'formik';
+//import {useContentEditorContext} from '@jahia/jcontent';
 import {useContentEditorContext} from '@jahia/content-editor';
-
 
 export const TranslateContentFromActionComponent = ({render: Render, ...otherProps}) => {
     const {render, destroy} = useContext(ComponentRendererContext);
